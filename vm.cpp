@@ -55,6 +55,22 @@ public:
     int get_change(int price) {
         return balance - price;
     }
+
+    void show_available_drinks(unordered_map<string, int>& prices) {
+      cout << "Minuman yang bisa dibeli: ";
+      bool found = false;
+      for (auto it = prices.begin(); it != prices.end(); ++it) {
+          if (balance >= it -> second) {
+              if (found) cout << ", ";
+              cout << it->first << " (" << it->second << ")";
+              found = true;
+          }
+      }
+      if (!found) {
+          cout << "Tidak ada (saldo tidak cukup)";
+      }
+      cout << endl;
+  }
 };
 
 int main() {
@@ -81,13 +97,18 @@ int main() {
             break;
         }
         if (dfa.process_input(user_input)) {
-            if (prices.find(user_input) != prices.end() && dfa.get_balance() >= prices[user_input]) {
-                int change = dfa.get_change(prices[user_input]);
-                cout << "Minuman " << user_input << " dapat dibeli dengan saldo " << dfa.get_balance() << ". Status: ACCEPTED." << endl;
-                if (change > 0) {
-                    cout << "Kembalian: " << change << endl;
+            dfa.show_available_drinks(prices);
+            if (prices.find(user_input) != prices.end()) {
+                if (dfa.get_balance() >= prices[user_input]) {
+                    int change = dfa.get_change(prices[user_input]);
+                    cout << "Minuman " << user_input << " dapat dibeli dengan saldo " << dfa.get_balance() << ". Status: ACCEPTED." << endl;
+                    if (change > 0) {
+                        cout << "Kembalian: " << change << endl;
+                    }
+                    dfa.reset();
+                } else {
+                    cout << "Uang tidak cukup untuk membeli minuman " << user_input << ". Saldo saat ini: " << dfa.get_balance() << " - Harga: " << prices[user_input] << endl;
                 }
-                dfa.reset();
             } else {
                 cout << "Saldo saat ini: " << dfa.get_balance() << endl;
             }
