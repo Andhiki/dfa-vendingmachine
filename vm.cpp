@@ -214,8 +214,8 @@ int main() {
             }
             else if (vending_machine.is_reject()) {
                 vending_machine.print_path();
-                cout << "Transaksi ditolak! Saldo melebihi Rp10.000" << endl;
-                vending_machine.reset();
+                cout << "Transaksi ditolak! Mesin akan direset." << endl;
+                vending_machine.reset();  // Manual reset after rejection
             }
             else {
                 if (isdigit(input[0])) {
