@@ -2,7 +2,7 @@
 
 ## Nama Anggota Kelompok
 1. Andreandhiki Riyanta Putra (23/517511/PA/22191)
-2. Andrian Danar Perdana (NIM)
+2. Andrian Danar Perdana (23/513040/PA/21917)
 
 ## Deskripsi Program
 Program ini merupakan simulasi vending machine berbasis Deterministic Finite Automaton (DFA). Pengguna dapat memasukkan uang dan memilih minuman yang tersedia. Jika saldo mencukupi, minuman dapat dibeli dan kembalian diberikan jika ada.
