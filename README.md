@@ -5,7 +5,7 @@
 2. Andrian Danar Perdana (NIM)
 
 ## Deskripsi Program
-Program ini merupakan simulasi mesin vending berbasis Deterministic Finite Automaton (DFA). Pengguna dapat memasukkan uang dan memilih minuman yang tersedia. Jika saldo mencukupi, minuman dapat dibeli dan kembalian diberikan jika ada.
+Program ini merupakan simulasi vending machine berbasis Deterministic Finite Automaton (DFA). Pengguna dapat memasukkan uang dan memilih minuman yang tersedia. Jika saldo mencukupi, minuman dapat dibeli dan kembalian diberikan jika ada.
 
 ## How to Run
 
