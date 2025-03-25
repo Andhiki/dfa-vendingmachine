@@ -24,7 +24,7 @@ private:
     unordered_map<pair<string, string>, string, hash_pair> transitions;
     string current_state;
     vector<string> path;
-    unordered_map<string, int> prices = {{"A", 3000}, {"B", 4000}, {"C", 6000}};
+    unordered_map<string, int> prices = { {"A", 3000}, {"B", 4000}, {"C", 6000} };
     int balance = 0;
 
 public:
@@ -62,10 +62,14 @@ public:
             
             if (isdigit(input[0])) {
                 balance += stoi(input);
-                // Ensure balance doesn't exceed 10000
+                // Jika saldo melebihi 10.000, reset otomatis
                 if (balance > 10000) {
                     current_state = "Reject";
                     path.push_back(current_state);
+                    print_path();
+                    cout << "Saldo melebihi batas 10.000. Status: REJECTED. Mesin akan direset." << endl;
+                    reset();
+                    return false;
                 }
             }
             return true;
@@ -98,7 +102,7 @@ public:
     void print_path() {
         cout << "Lintasan DFA: ";
         for (size_t i = 0; i < path.size(); ++i) {
-            if (i != 0) cout << " → ";
+            if (i != 0) cout << " -> ";
             cout << path[i];
         }
         cout << endl;
@@ -115,7 +119,7 @@ public:
                 reset();
             } else {
                 print_path();
-                cout << "Uang tidak cukup. Status: REJECTED." << endl;
+                cout << "Transaksi ditolak dan Mesin akan direset." << endl;
                 reset();
             }
         }
@@ -154,35 +158,27 @@ DFA load_dfa_from_file(const string& filename) {
             while (getline(ss, state, ',')) {
                 if (!state.empty()) states.insert(state);
             }
-        }
-        else if (line.find("Alphabet:") == 0) {
+        } else if (line.find("Alphabet:") == 0) {
             stringstream ss(line.substr(9));
             string symbol;
             while (getline(ss, symbol, ',')) {
                 if (!symbol.empty()) alphabet.insert(symbol);
             }
-        }
-        else if (line.find("Start:") == 0) {
+        } else if (line.find("Start:") == 0) {
             start_state = line.substr(6);
-        }
-        else if (line.find("Accept:") == 0) {
+        } else if (line.find("Accept:") == 0) {
             stringstream ss(line.substr(7));
             string state;
             while (getline(ss, state, ',')) {
                 if (!state.empty()) accept_states.insert(state);
             }
-        }
-        else if (line.find("Transitions:") == 0) {
-            continue;
-        }
-        else {
-            // Parse transition line (format: from,input,to)
+        } else {
             stringstream ss(line);
             string from, input, to;
             getline(ss, from, ',');
             getline(ss, input, ',');
             getline(ss, to, ',');
-            
+
             if (!from.empty() && !input.empty() && !to.empty()) {
                 transitions[{from, input}] = to;
             }
@@ -223,8 +219,7 @@ int main() {
                     vending_machine.show_available_drinks();
                 }
             }
-        }
-        else {
+        } else {
             cout << "Transisi tidak valid untuk state saat ini" << endl;
         }
     }
